@@ -9,7 +9,8 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    var storyIndex: Int = 0
+    
     // Our strings
     let story1 = "Your car has blown a tire on a winding road in the middle of nowhere with no cell phone reception. You decide to hitchhike. A rusty pickup truck rumbles to a stop next to you. A man with a wide brimmed hat with soulless eyes opens the passenger door for you and asks: \"Need a ride, boy?\"."
     let answer1a = "I\'ll hop in. Thanks for the help!"
@@ -41,6 +42,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        centerAlignButtonText()
+        changeDisplayTexts(story: story1, button1: answer1a, button2: answer1b)
         
         
         // TODO Step 3: Set the text for the storyTextView, topButton, bottomButton, and to T1_Story, T1_Ans1, and T1_Ans2
@@ -50,7 +53,55 @@ class ViewController: UIViewController {
     
     // User presses one of the buttons
     @IBAction func buttonPressed(_ sender: UIButton) {
-    
+        centerAlignButtonText()
+        
+        
+        if storyIndex == 0{
+            if sender.tag == 1{
+                changeDisplayTexts(story: story3, button1: answer3a, button2: answer3b)
+            }
+            
+            else{
+                changeDisplayTexts(story: story2, button1: answer2a, button2: answer2b)
+            }
+            
+        }
+        
+        else if storyIndex == 1 && storyTextView.text == story3{
+            if sender.tag == 1{
+                hideButtonText(story: story6)
+               
+            }
+            
+            else{
+                hideButtonText(story: story5)
+            }
+        }
+        
+        else if storyIndex == 1 && storyTextView.text == story2{
+            if sender.tag == 1{
+                changeDisplayTexts(story: story3, button1: answer3a, button2: answer3b)
+            }
+            
+            else{
+                hideButtonText(story: story4)
+            }
+        }
+        
+        else if storyIndex == 2 && storyTextView.text == story3{
+            if sender.tag == 1 {
+                hideButtonText(story: story6)
+            }
+            
+            else{
+                hideButtonText(story: story5)
+            }
+        }
+        
+        
+        storyIndex += 1
+        
+        
         // TODO Step 4: Write an IF-Statement to update the views
                 
         // TODO Step 6: Modify the IF-Statement to complete the story
@@ -59,7 +110,24 @@ class ViewController: UIViewController {
     }
     
 
-
+    func centerAlignButtonText(){
+        topButton.titleLabel?.textAlignment = NSTextAlignment.center
+        bottomButton.titleLabel?.textAlignment = NSTextAlignment.center
+    }
+    
+    func changeDisplayTexts(story: String, button1: String, button2: String){
+        storyTextView.text = story
+        topButton.setTitle(button1, for: .normal)
+        bottomButton.setTitle(button2, for: .normal)
+    }
+    
+    func hideButtonText(story: String){
+        storyTextView.text = story
+        bottomButton.isHidden = true
+    }
+    
+    
+   
 
 }
 
